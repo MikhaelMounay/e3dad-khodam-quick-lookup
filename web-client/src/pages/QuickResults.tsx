@@ -7,6 +7,8 @@ import { useRef, useState } from "react";
 import { UserData } from "@/types/userData";
 
 const QuickResults: React.FC = function () {
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
     // React States
     const [nationalId, setNationalId] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
@@ -89,85 +91,129 @@ const QuickResults: React.FC = function () {
             </form>
 
             {fetchQuery.isSuccess && (
-                <div className="mt-6 lg:px-20" dir="rtl">
-                    {fetchQuery.data?.Alert && (
-                        <p className="mx-auto mb-2 w-fit rounded-md border-2 border-amber-600 border-opacity-65 bg-amber-500 bg-opacity-50 px-4 py-3 text-black">
-                            تنبيه: {fetchQuery.data.Alert.replace('"', "")}
-                        </p>
-                    )}
+                <>
+                    <div className="mt-6 lg:px-20" dir="rtl">
+                        {fetchQuery.data?.Alert && (
+                            <p className="mx-auto mb-2 w-fit rounded-md border-2 border-amber-600 border-opacity-65 bg-amber-500 bg-opacity-50 px-4 py-3 text-black">
+                                تنبيه: {fetchQuery.data.Alert.replace('"', "")}
+                            </p>
+                        )}
 
-                    <div className="mt-10 grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
-                        <p className="text-lg">
-                            الاسم بالعربي: <span className="font-semibold">{fetchQuery.data?.NameAr}</span>
-                        </p>
-                        <p className="text-lg">
-                            الاسم بالإنجليزي: <span className="font-semibold">{fetchQuery.data?.NameEn}</span>
-                        </p>
-                        <p className="text-lg">
-                            الهاتف:{" "}
-                            <span
-                                className={"font-semibold " + (fetchQuery.data?.Phone.length !== 11 ? "text-red-600" : "")}
-                            >
-                                {fetchQuery.data?.Phone ? (
-                                    fetchQuery.data.Phone
-                                ) : (
-                                    <span className="text-red-600">برجاء اكمال البيانات</span>
-                                )}
-                            </span>
-                        </p>
-                        <p className="text-lg">
-                            العنوان:{" "}
-                            <span className="font-semibold">
-                                {fetchQuery.data?.Address ? (
-                                    fetchQuery.data.Address
-                                ) : (
-                                    <span className="text-red-600">برجاء اكمال البيانات</span>
-                                )}
-                            </span>
-                        </p>
-                        <p className="text-lg">
-                            المنطقة:{" "}
-                            <span className="font-semibold">
-                                {fetchQuery.data?.Region ? (
-                                    fetchQuery.data.Region
-                                ) : (
-                                    <span className="text-red-600">برجاء اكمال البيانات</span>
-                                )}
-                            </span>
-                        </p>
-                        <p className="text-lg">
-                            تاريخ الميلاد:{" "}
-                            <span className="font-semibold">{fetchQuery.data?.BirthDate.toDate().toLocaleDateString()}</span>
-                        </p>
-                        <p className="text-lg">
-                            اسم المجموعة: <span className="font-semibold">{fetchQuery.data?.GroupName}</span>
-                        </p>
-                        <p className="text-lg">
-                            اسم الخادم: <span className="font-semibold">{fetchQuery.data?.ServantName}</span>
-                        </p>
-                        <p className="text-lg">
-                            اسم أب الاعتراف:{" "}
-                            <span className="font-semibold">
-                                {fetchQuery.data?.PenanceFather ? (
-                                    fetchQuery.data.PenanceFather
-                                ) : (
-                                    <span className="text-red-600">برجاء اكمال البيانات</span>
-                                )   }
-                            </span>
-                        </p>
-                        <p className="text-lg">
-                            التزكية:{" "}
-                            <span
-                                className={
-                                    "font-semibold " +
-                                    (fetchQuery.data?.RecommendationLetter.toLowerCase() === "done" ? "" : "text-red-600")
-                                }
-                            >
-                                {fetchQuery.data?.RecommendationLetter}
-                            </span>
-                        </p>
+                        <div className="mt-10 grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
+                            <p className="text-lg">
+                                الاسم بالعربي: <span className="font-semibold">{fetchQuery.data?.NameAr}</span>
+                            </p>
+                            <p className="text-lg">
+                                الاسم بالإنجليزي: <span className="font-semibold">{fetchQuery.data?.NameEn}</span>
+                            </p>
+                            <p className="text-lg">
+                                الهاتف:{" "}
+                                <span
+                                    className={
+                                        "font-semibold " + (fetchQuery.data?.Phone.length !== 11 ? "text-red-600" : "")
+                                    }
+                                >
+                                    {fetchQuery.data?.Phone ? (
+                                        fetchQuery.data.Phone
+                                    ) : (
+                                        <span className="text-red-600">برجاء اكمال البيانات</span>
+                                    )}
+                                </span>
+                            </p>
+                            <p className="text-lg">
+                                العنوان:{" "}
+                                <span className="font-semibold">
+                                    {fetchQuery.data?.Address ? (
+                                        fetchQuery.data.Address
+                                    ) : (
+                                        <span className="text-red-600">برجاء اكمال البيانات</span>
+                                    )}
+                                </span>
+                            </p>
+                            <p className="text-lg">
+                                المنطقة:{" "}
+                                <span className="font-semibold">
+                                    {fetchQuery.data?.Region ? (
+                                        fetchQuery.data.Region
+                                    ) : (
+                                        <span className="text-red-600">برجاء اكمال البيانات</span>
+                                    )}
+                                </span>
+                            </p>
+                            <p className="text-lg">
+                                تاريخ الميلاد:{" "}
+                                <span className="font-semibold">
+                                    {fetchQuery.data?.BirthDate.toDate().toLocaleDateString()}
+                                </span>
+                            </p>
+                            <p className="text-lg">
+                                اسم المجموعة: <span className="font-semibold">{fetchQuery.data?.GroupName}</span>
+                            </p>
+                            <p className="text-lg">
+                                اسم الخادم: <span className="font-semibold">{fetchQuery.data?.ServantName}</span>
+                            </p>
+                            <p className="text-lg">
+                                اسم أب الاعتراف:{" "}
+                                <span className="font-semibold">
+                                    {fetchQuery.data?.PenanceFather ? (
+                                        fetchQuery.data.PenanceFather
+                                    ) : (
+                                        <span className="text-red-600">برجاء اكمال البيانات</span>
+                                    )}
+                                </span>
+                            </p>
+                            <p className="text-lg">
+                                التزكية:{" "}
+                                <span
+                                    className={
+                                        "font-semibold " +
+                                        (fetchQuery.data?.RecommendationLetter.toLowerCase() === "done"
+                                            ? ""
+                                            : "text-red-600")
+                                    }
+                                >
+                                    {fetchQuery.data?.RecommendationLetter}
+                                </span>
+                            </p>
+                        </div>
                     </div>
-                </div>
+
+                    <div className="mt-10">
+                        <h4 className="mb-5 text-center text-xl font-bold">الحضور</h4>
+                        <div className="mx-auto max-w-[calc(90svw)] overflow-x-auto">
+                            <table className="mx-auto border-collapse">
+                                <thead>
+                                    <tr className="text-center">
+                                        {Object.keys(fetchQuery.data?.Attendance || {})
+                                            .sort()
+                                            .map((key) => (
+                                                <td key={key} className="p-2">
+                                                    {months[Number(key.substring(5, 7)) - 1]}
+                                                    <br />
+                                                    {key.substring(8, 10)}
+                                                </td>
+                                            ))}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr className="text-center">
+                                        {Object.keys(fetchQuery.data?.Attendance || {})
+                                            .sort()
+                                            .map((key) => (
+                                                <td key={key} className="p-2">
+                                                    {fetchQuery.data?.Attendance[key]
+                                                        ? "✅"
+                                                        : new Date(key) > new Date()
+                                                          ? "🔵"
+                                                          : "❌"}
+                                                </td>
+                                            ))}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </>
             )}
         </div>
     );

@@ -15,6 +15,7 @@ interface UserData {
     Address: string;
     Region: string;
     BirthDate: Timestamp;
+    Attendance: Record<string, boolean>;
 }
 
 export type { UserData };

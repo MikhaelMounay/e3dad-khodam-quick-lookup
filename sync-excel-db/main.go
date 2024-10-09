@@ -69,6 +69,6 @@ func main() {
 	writer.Stop()
 
 	fmt.Println("Finished adding new record!")
-	fmt.Print("\nPress any key to exit...")
+	fmt.Print("\nPress enter/return to exit...")
 	fmt.Scanln()
 }

@@ -4,7 +4,7 @@ import Logo from "@/assets/imgs/stmary_logo.png";
 
 const DefaultLayout: React.FC = function () {
     return (
-        <div className="flex min-h-[calc(100svh)] flex-col items-center justify-center bg-gray-50 p-10">
+        <div className="flex min-h-[calc(100svh)] flex-col items-center justify-center bg-gray-50 px-10 py-20">
             <img src={Logo} alt="St Mary Ztn logo" className="mb-6 mt-8 w-36"></img>
             <div className="text-center">
                 <h3 className="mb-6 text-lg">كنيسة السيدة العذراء مريم بالزيتون</h3>
