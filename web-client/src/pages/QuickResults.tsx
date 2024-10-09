@@ -160,7 +160,7 @@ const QuickResults: React.FC = function () {
                             <span
                                 className={
                                     "font-semibold " +
-                                    (fetchQuery.data?.RecommendationLetter === "Done" ? "" : "text-red-600")
+                                    (fetchQuery.data?.RecommendationLetter.toLowerCase() === "done" ? "" : "text-red-600")
                                 }
                             >
                                 {fetchQuery.data?.RecommendationLetter}
