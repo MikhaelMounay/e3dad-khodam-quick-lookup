@@ -25,6 +25,8 @@ func getDataFromExcel(filePath string) []UserData {
 		panic(err)
 	}
 
+	headers := rows[0]
+
 	var users = make([]UserData, len(rows)-1)
 	for i, row := range rows[1:] {
 		age, err := strconv.Atoi(row[4])
@@ -35,7 +37,6 @@ func getDataFromExcel(filePath string) []UserData {
 		birthDate_str := ""
 		var birthDate time.Time
 		if len(row[8]) == 14 {
-
 			if row[8][0] == '2' {
 				birthDate_str += "19"
 			} else {
@@ -47,6 +48,11 @@ func getDataFromExcel(filePath string) []UserData {
 			if err != nil {
 				fmt.Printf("Error: `%v` in row %v of name %v\n", err, i, row[1])
 			}
+		}
+
+		attendance := make(map[string]bool)
+		for j, header := range headers[14 : len(headers)-1] {
+			attendance[header] = row[j+14] == "1"
 		}
 
 		users[i] = UserData{
@@ -64,6 +70,7 @@ func getDataFromExcel(filePath string) []UserData {
 			Address:              row[11],
 			Region:               row[12],
 			BirthDate:            birthDate,
+			Attendance:           attendance,
 		}
 	}
 

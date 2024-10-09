@@ -25,6 +25,7 @@ type UserData struct {
 	Address              string
 	Region               string
 	BirthDate            time.Time
+	Attendance           map[string]bool
 }
 
 func main() {
@@ -35,7 +36,6 @@ func main() {
 	filePath := strings.ReplaceAll(scanner.Text(), "\"", "")
 
 	// Read data from Excel file
-	// userData := getDataFromExcel("exceldb.xlsx")
 	userData := getDataFromExcel(filePath)
 	fmt.Printf("%v records loaded successfully!\nDeleting current collection...\n", len(userData))
 
