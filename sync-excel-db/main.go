@@ -29,15 +29,42 @@ type UserData struct {
 }
 
 func main() {
-	// Get inputs from user
+	fmt.Println("\n---------------------------------------------------------------------------------------")
+	fmt.Println("\n-----------------------  E3dad Khodam St Mary Church ElZeitoun  -----------------------")
+	fmt.Println("\n---------------------------------------------------------------------------------------")
+	fmt.Println("\n---------------  Quick Information Lookup | Student Information Portal  ---------------")
+	fmt.Println("\n---------------------------------------------------------------------------------------")
+	fmt.Println("\n-----------  Welcome to the Excel to Firebase sync tool! (v1.1 2024-10-12)  -----------")
+	fmt.Println("\n---------------------------------------------------------------------------------------")
+
+	// Get password from user
 	scanner := bufio.NewScanner(os.Stdin)
-	fmt.Print("Enter the path of the Excel file: ")
+
+	fmt.Print("\n\nPlease enter password to continue: ")
+	scanner.Scan()
+	password := scanner.Text()
+	if password != "hat4ofony_every_week_:)" {
+		fmt.Println("Incorrect password! Exiting...")
+		return
+	} else {
+		fmt.Println("\nHellos :)")
+	}
+
+	// Get inputs from user
+	fmt.Print("\n\nEnter the path of the Excel file: ")
 	scanner.Scan()
 	filePath := strings.ReplaceAll(scanner.Text(), "\"", "")
 
+	fmt.Print("Enter the name of the sheet: (Sheet 1) ")
+	scanner.Scan()
+	sheetName := scanner.Text()
+	if sheetName == "" {
+		sheetName = "Sheet 1"
+	}
+
 	// Read data from Excel file
-	userData := getDataFromExcel(filePath)
-	fmt.Printf("%v records loaded successfully!\nDeleting current collection...\n", len(userData))
+	userData := getDataFromExcel(filePath, sheetName)
+	fmt.Printf("\n%d records loaded successfully!\n\nDeleting current collection...\n", len(userData))
 
 	// Connect to Firestore
 	if err := initFirebase(); err != nil {
@@ -50,7 +77,7 @@ func main() {
 		fmt.Printf("Error deleting collection: `%v`\n", err)
 		return
 	} else {
-		fmt.Println("Collection deleted successfully!\nAdding new records...")
+		fmt.Println("Collection deleted successfully!\n\nAdding new records...")
 	}
 
 	// Setup uilive Writer for better CLI output
@@ -68,7 +95,8 @@ func main() {
 	fmt.Fprintf(writer, "Adding user record %d\n", len(userData))
 	writer.Stop()
 
-	fmt.Println("Finished adding new record!")
+	fmt.Println("\nFinished adding new records!")
+	fmt.Println("\nHave a nice day! Bless you :)")
 	fmt.Print("\nPress enter/return to exit...")
 	fmt.Scanln()
 }

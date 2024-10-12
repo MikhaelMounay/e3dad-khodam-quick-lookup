@@ -15,6 +15,9 @@ var firestoreClient *firestore.Client
 
 func initFirebase() error {
 	ctx = context.Background()
+	// serviceAccount := option.WithCredentialsJSON([]byte(`{
+	// 	"JSONobject": "here"
+	// }`))
 	serviceAccount := option.WithCredentialsFile("e3dad-khodam-quick-lookup-firebase-adminsdk-asaq3-b669c16b66.json")
 	app, err := firebase.NewApp(ctx, nil, serviceAccount)
 	if err != nil {
