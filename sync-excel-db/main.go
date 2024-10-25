@@ -36,7 +36,7 @@ func main() {
 	fmt.Println("\n---------------------------------------------------------------------------------------")
 	fmt.Println("\n---------------  Quick Information Lookup | Student Information Portal  ---------------")
 	fmt.Println("\n---------------------------------------------------------------------------------------")
-	fmt.Println("\n-----------  Welcome to the Excel to Firebase sync tool! (v1.2 2024-10-25)  -----------")
+	fmt.Println("\n-----------  Welcome to the Excel to Firebase sync tool! (v1.3 2024-10-26)  -----------")
 	fmt.Println("\n---------------------------------------------------------------------------------------")
 
 	// Get password from user
@@ -53,7 +53,7 @@ func main() {
 	}
 
 	// Get inputs from user
-	fmt.Print("\n\nEnter the path of the Excel file: ")
+	fmt.Print("\nEnter the path of the Excel file: ")
 	scanner.Scan()
 	filePath := strings.ReplaceAll(scanner.Text(), "\"", "")
 
@@ -66,7 +66,7 @@ func main() {
 
 	// Read data from Excel file
 	userData := getDataFromExcel(filePath, sheetName)
-	fmt.Printf("\n%d records loaded successfully!\n\nDeleting current collection...\n", len(userData))
+	fmt.Printf("\n[1] %d records loaded successfully!\n", len(userData))
 
 	// Connect to Firestore
 	if err := initFirebase(); err != nil {
@@ -74,17 +74,27 @@ func main() {
 	}
 	defer firestoreClient.Close()
 
+	// Uploading File to Firebase Storage
+	fmt.Print("[2] Parsing file contents...\n")
+
+	if err := uploadFileToStorage(filePath); err != nil {
+		fmt.Printf("Error uploading file to storage: `%v`\n", err)
+	}
+
 	// Delete all records in the collection
+	fmt.Print("[3] Deleting current collection...\n")
+
 	if err := deleteCollection("user_data"); err != nil {
 		fmt.Printf("Error deleting collection: `%v`\n", err)
 		return
-	} else {
-		fmt.Println("Collection deleted successfully!\n\nAdding new records...")
 	}
 
 	// Setup uilive Writer for better CLI output
 	writer := uilive.New()
 	writer.Start()
+
+	// Add new records to the collection
+	fmt.Print("[4] Adding new records...\n")
 
 	for i, userRecord := range userData {
 		fmt.Fprintf(writer, "Adding user record %d\n", i)
