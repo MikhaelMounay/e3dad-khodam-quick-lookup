@@ -28,6 +28,7 @@ type UserData struct {
 	Attendance           map[string]bool
 	AttendanceRate       string
 	Quizzes              map[string]int
+	Grades               map[string]string
 }
 
 func main() {

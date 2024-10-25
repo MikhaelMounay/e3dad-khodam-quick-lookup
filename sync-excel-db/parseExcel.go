@@ -88,6 +88,20 @@ func getDataFromExcel(filePath string, sheetName string) []UserData {
 			}
 		}
 
+		// Grades
+		grades := map[string]string{
+			"attendance_40":  row[15],
+			"quizzes_30":     row[16],
+			"hymns1_10":      row[17],
+			"project_20":     row[18],
+			"recitations_20": row[19],
+			"hymns2_10":      row[20],
+			"research_10":    row[21],
+			"exam1_60":       row[22],
+			"exam2_50":       row[23],
+			"total_250":      row[24],
+		}
+
 		users[i] = UserData{
 			NameAr:               row[1],
 			NameEn:               row[2],
@@ -106,6 +120,7 @@ func getDataFromExcel(filePath string, sheetName string) []UserData {
 			Attendance:           attendance,
 			AttendanceRate:       row[14],
 			Quizzes:              quizzes,
+			Grades:               grades,
 		}
 	}
 
