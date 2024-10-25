@@ -26,6 +26,8 @@ type UserData struct {
 	Region               string
 	BirthDate            time.Time
 	Attendance           map[string]bool
+	AttendanceRate       string
+	Quizzes              map[string]int
 }
 
 func main() {
@@ -34,7 +36,7 @@ func main() {
 	fmt.Println("\n---------------------------------------------------------------------------------------")
 	fmt.Println("\n---------------  Quick Information Lookup | Student Information Portal  ---------------")
 	fmt.Println("\n---------------------------------------------------------------------------------------")
-	fmt.Println("\n-----------  Welcome to the Excel to Firebase sync tool! (v1.1 2024-10-12)  -----------")
+	fmt.Println("\n-----------  Welcome to the Excel to Firebase sync tool! (v1.2 2024-10-25)  -----------")
 	fmt.Println("\n---------------------------------------------------------------------------------------")
 
 	// Get password from user

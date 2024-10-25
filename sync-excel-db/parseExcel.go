@@ -30,11 +30,13 @@ func getDataFromExcel(filePath string, sheetName string) []UserData {
 
 	var users = make([]UserData, len(rows)-2)
 	for i, row := range rows[1 : len(rows)-1] {
+		// Age
 		age, err := strconv.Atoi(row[5])
 		if err != nil {
 			fmt.Printf("Error: error parsing Age: \"%v\" in row %v of name %v\n", err, i+2, row[2])
 		}
 
+		// BirthDate
 		birthDate_str := ""
 		var birthDate time.Time
 		if len(row[6]) == 14 {
@@ -54,9 +56,9 @@ func getDataFromExcel(filePath string, sheetName string) []UserData {
 			}
 		}
 
+		// Attendance
 		attendance := make(map[string]bool)
 		for j, header := range headers[26:70] {
-
 			day, err := time.Parse("2-Jan", header)
 			if err != nil {
 				fmt.Printf("Error: `%v` in column %v of name %v\n", err, j+26, header)
@@ -71,7 +73,19 @@ func getDataFromExcel(filePath string, sheetName string) []UserData {
 			attendance[day.Format("2006-01-02")] = row[j+26] == "1"
 		}
 
-		// TODO: Quizzes
+		// Quizzes
+		quizzes := make(map[string]int, 30)
+		for j, header := range headers[70:100] {
+			if (row[j+70] == "") {
+				quizzes[strconv.Itoa(j)] = 0
+				continue
+			}
+
+			quizzes[strconv.Itoa(j)], err = strconv.Atoi(row[j+70])
+			if err != nil {
+				fmt.Printf("Error: `%v` in column %v of name %v\n", err, j+70, header)
+			}
+		}
 
 		users[i] = UserData{
 			NameAr:               row[1],
@@ -89,6 +103,8 @@ func getDataFromExcel(filePath string, sheetName string) []UserData {
 			Region:               row[10],
 			BirthDate:            birthDate,
 			Attendance:           attendance,
+			AttendanceRate:       row[14],
+			Quizzes:              quizzes,
 		}
 	}
 
