@@ -16,6 +16,8 @@ interface UserData {
     Region: string;
     BirthDate: Timestamp;
     Attendance: Record<string, boolean>;
+    AttendanceRate: string;
+    Quizzes: Record<string, number>;
 }
 
 export type { UserData };

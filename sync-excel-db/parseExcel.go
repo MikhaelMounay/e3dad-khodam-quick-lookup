@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"slices"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/xuri/excelize/v2"
@@ -76,12 +77,12 @@ func getDataFromExcel(filePath string, sheetName string) []UserData {
 		// Quizzes
 		quizzes := make(map[string]int, 30)
 		for j, header := range headers[70:100] {
-			if (row[j+70] == "") {
-				quizzes[strconv.Itoa(j)] = 0
+			if row[j+70] == "" {
+				quizzes[fmt.Sprintf("%02d_%s", j, strings.Split(header, "\n")[1])] = 0
 				continue
 			}
 
-			quizzes[strconv.Itoa(j)], err = strconv.Atoi(row[j+70])
+			quizzes[fmt.Sprintf("%02d_%s", j, strings.Split(header, "\n")[1])], err = strconv.Atoi(row[j+70])
 			if err != nil {
 				fmt.Printf("Error: `%v` in column %v of name %v\n", err, j+70, header)
 			}

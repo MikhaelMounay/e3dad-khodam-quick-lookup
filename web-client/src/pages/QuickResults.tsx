@@ -60,6 +60,34 @@ const QuickResults: React.FC = function () {
         fetchQuery.refetch();
     }
 
+    function perc2color(perc: number) {
+        const darkenFactor = 0.7;
+
+        let r,
+            g = 0,
+            b = 0;
+        if (perc < 50) {
+            r = 255;
+            g = Math.round(5.1 * perc);
+        } else {
+            g = 255;
+            r = Math.round(510 - 5.1 * perc);
+        }
+
+        // Apply darkening
+        r = Math.round(r * darkenFactor);
+        g = Math.round(g * darkenFactor);
+        b = Math.round(b * darkenFactor);
+
+        // Ensure RGB values are within the valid range [0, 255]
+        r = Math.max(0, Math.min(255, r));
+        g = Math.max(0, Math.min(255, g));
+        b = Math.max(0, Math.min(255, b));
+
+        const h = r * 0x10000 + g * 0x100 + b * 0x1;
+        return "#" + ("000000" + h.toString(16)).slice(-6);
+    }
+
     return (
         <div className="my-3">
             <form onSubmit={(e) => handleSubmit(e)}>
@@ -92,6 +120,7 @@ const QuickResults: React.FC = function () {
 
             {fetchQuery.isSuccess && (
                 <>
+                    {/* Basic Info */}
                     <div className="mt-6 lg:px-20" dir="rtl">
                         {fetchQuery.data?.Alert && (
                             <p className="mx-auto mb-2 w-fit rounded-md border-2 border-amber-600 border-opacity-65 bg-amber-500 bg-opacity-50 px-4 py-3 text-black">
@@ -178,8 +207,24 @@ const QuickResults: React.FC = function () {
                         </div>
                     </div>
 
-                    <div className="mt-10">
+                    {/* Attendance */}
+                    <div className="mt-14">
                         <h4 className="mb-5 text-center text-xl font-bold">الحضور</h4>
+                        <p
+                            className="mx-auto mb-5 w-fit rounded border px-4 py-1 text-center text-lg font-bold text-white"
+                            style={{
+                                backgroundColor: perc2color(
+                                    Number(
+                                        fetchQuery.data?.AttendanceRate.substring(
+                                            0,
+                                            fetchQuery.data?.AttendanceRate.length - 1
+                                        )
+                                    )
+                                ),
+                            }}
+                        >
+                            {fetchQuery.data?.AttendanceRate}
+                        </p>
                         <div className="mx-auto max-w-[calc(90svw)] overflow-x-auto">
                             <table className="mx-auto border-collapse">
                                 <thead>
@@ -203,9 +248,53 @@ const QuickResults: React.FC = function () {
                                                 <td key={key} className="p-2">
                                                     {fetchQuery.data?.Attendance[key]
                                                         ? "✅"
-                                                        : new Date(key) > new Date()
+                                                        : new Date(key) >
+                                                            new Date(new Date().setDate(new Date().getDate() - 1))
                                                           ? "🔵"
                                                           : "❌"}
+                                                </td>
+                                            ))}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    {/* Quizzes */}
+                    <div className="mt-14">
+                        <h4 className="mb-5 text-center text-xl font-bold">Quizzes</h4>
+                        <div className="mx-auto max-w-[calc(90svw)] overflow-x-auto">
+                            <table className="mx-auto border-collapse">
+                                <thead>
+                                    <tr className="text-center">
+                                        {Object.keys(fetchQuery.data?.Quizzes || {})
+                                            .sort()
+                                            .map((key) => (
+                                                <td key={key} className="whitespace-pre p-2">
+                                                    Quiz {Number(key.split("_")[0]) + 1}
+                                                    <br />({key.split("_")[1]})
+                                                </td>
+                                            ))}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr className="text-center">
+                                        {Object.keys(fetchQuery.data?.Quizzes || {})
+                                            .sort()
+                                            .map((key) => (
+                                                <td key={key} className="p-2">
+                                                    <p
+                                                        className="mx-auto w-fit rounded px-3 py-0.5 text-white"
+                                                        style={{
+                                                            backgroundColor: perc2color(
+                                                                (Number(fetchQuery.data?.Quizzes[key]) /
+                                                                    Number(key.split("_")[1])) *
+                                                                    100
+                                                            ),
+                                                        }}
+                                                    >
+                                                        {fetchQuery.data?.Quizzes[key]}
+                                                    </p>
                                                 </td>
                                             ))}
                                     </tr>
