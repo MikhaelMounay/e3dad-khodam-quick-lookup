@@ -128,81 +128,66 @@ const QuickResults: React.FC = function () {
                             </p>
                         )}
 
-                        <div className="mt-10 grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
-                            <p className="text-lg">
-                                الاسم بالعربي: <span className="font-semibold">{fetchQuery.data?.NameAr}</span>
+                        <div className="mt-10 grid gap-4 text-lg grid-cols-2 lg:grid-cols-4 xl:grid-cols-6">
+                            <p>الاسم بالعربي</p>
+                            <p className="font-semibold">{fetchQuery.data?.NameAr}</p>
+
+                            <p>الاسم بالإنجليزي</p>
+                            <p className="font-semibold">{fetchQuery.data?.NameEn}</p>
+
+                            <p className="text-lg">الهاتف</p>
+                            <p className={"font-semibold " + (fetchQuery.data?.Phone.length !== 11 ? "text-red-600" : "")}>
+                                {fetchQuery.data?.Phone ? (
+                                    fetchQuery.data.Phone
+                                ) : (
+                                    <span className="text-red-600">برجاء اكمال البيانات</span>
+                                )}
                             </p>
-                            <p className="text-lg">
-                                الاسم بالإنجليزي: <span className="font-semibold">{fetchQuery.data?.NameEn}</span>
+
+                            <p>العنوان: </p>
+                            <p className="font-semibold">
+                                {fetchQuery.data?.Address ? (
+                                    fetchQuery.data.Address
+                                ) : (
+                                    <span className="text-red-600">برجاء اكمال البيانات</span>
+                                )}
                             </p>
-                            <p className="text-lg">
-                                الهاتف:{" "}
-                                <span
-                                    className={
-                                        "font-semibold " + (fetchQuery.data?.Phone.length !== 11 ? "text-red-600" : "")
-                                    }
-                                >
-                                    {fetchQuery.data?.Phone ? (
-                                        fetchQuery.data.Phone
-                                    ) : (
-                                        <span className="text-red-600">برجاء اكمال البيانات</span>
-                                    )}
-                                </span>
+
+                            <p>المنطقة</p>
+                            <p className="font-semibold">
+                                {fetchQuery.data?.Region ? (
+                                    fetchQuery.data.Region
+                                ) : (
+                                    <span className="text-red-600">برجاء اكمال البيانات</span>
+                                )}
                             </p>
-                            <p className="text-lg">
-                                العنوان:{" "}
-                                <span className="font-semibold">
-                                    {fetchQuery.data?.Address ? (
-                                        fetchQuery.data.Address
-                                    ) : (
-                                        <span className="text-red-600">برجاء اكمال البيانات</span>
-                                    )}
-                                </span>
+
+                            <p>تاريخ الميلاد</p>
+                            <p className="font-semibold">{fetchQuery.data?.BirthDate.toDate().toLocaleDateString()}</p>
+
+                            <p>اسم المجموعة</p>
+                            <p className="font-semibold">{fetchQuery.data?.GroupName}</p>
+
+                            <p>اسم الخادم</p>
+                            <p className="font-semibold">{fetchQuery.data?.ServantName}</p>
+
+                            <p>اسم أب الاعتراف</p>
+                            <p className="font-semibold">
+                                {fetchQuery.data?.PenanceFather ? (
+                                    fetchQuery.data.PenanceFather
+                                ) : (
+                                    <span className="text-red-600">برجاء اكمال البيانات</span>
+                                )}
                             </p>
-                            <p className="text-lg">
-                                المنطقة:{" "}
-                                <span className="font-semibold">
-                                    {fetchQuery.data?.Region ? (
-                                        fetchQuery.data.Region
-                                    ) : (
-                                        <span className="text-red-600">برجاء اكمال البيانات</span>
-                                    )}
-                                </span>
-                            </p>
-                            <p className="text-lg">
-                                تاريخ الميلاد:{" "}
-                                <span className="font-semibold">
-                                    {fetchQuery.data?.BirthDate.toDate().toLocaleDateString()}
-                                </span>
-                            </p>
-                            <p className="text-lg">
-                                اسم المجموعة: <span className="font-semibold">{fetchQuery.data?.GroupName}</span>
-                            </p>
-                            <p className="text-lg">
-                                اسم الخادم: <span className="font-semibold">{fetchQuery.data?.ServantName}</span>
-                            </p>
-                            <p className="text-lg">
-                                اسم أب الاعتراف:{" "}
-                                <span className="font-semibold">
-                                    {fetchQuery.data?.PenanceFather ? (
-                                        fetchQuery.data.PenanceFather
-                                    ) : (
-                                        <span className="text-red-600">برجاء اكمال البيانات</span>
-                                    )}
-                                </span>
-                            </p>
-                            <p className="text-lg">
-                                التزكية:{" "}
-                                <span
-                                    className={
-                                        "font-semibold " +
-                                        (fetchQuery.data?.RecommendationLetter.toLowerCase() === "done"
-                                            ? ""
-                                            : "text-red-600")
-                                    }
-                                >
-                                    {fetchQuery.data?.RecommendationLetter}
-                                </span>
+
+                            <p>التزكية</p>
+                            <p
+                                className={
+                                    "font-semibold " +
+                                    (fetchQuery.data?.RecommendationLetter.toLowerCase() === "done" ? "" : "text-red-600")
+                                }
+                            >
+                                {fetchQuery.data?.RecommendationLetter}
                             </p>
                         </div>
                     </div>
@@ -307,7 +292,7 @@ const QuickResults: React.FC = function () {
                     <div className="mt-14 lg:px-20" dir="rtl">
                         <h4 className="mb-5 text-center text-xl font-bold">Grades</h4>
 
-                        <div className="mt-10 grid gap-4 grid-cols-2 lg:grid-cols-4 xl:grid-cols-6">
+                        <div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4 xl:grid-cols-6">
                             {Object.keys(fetchQuery.data?.Grades || {})
                                 .sort()
                                 .map((key) => (
@@ -326,7 +311,7 @@ const QuickResults: React.FC = function () {
                                             {key.split("_")[0] == "11grade" && "Grade"} ({key.split("_")[1]})
                                         </p>
 
-                                        <p key={`${key}2`} className="font-semibold border rounded px-2 py-0.5 w-fit">
+                                        <p key={`${key}2`} className="w-fit rounded border px-2 py-0.5 font-semibold">
                                             {fetchQuery.data?.Grades[key] || 0}
                                         </p>
                                     </>
