@@ -302,6 +302,52 @@ const QuickResults: React.FC = function () {
                             </table>
                         </div>
                     </div>
+
+                    {/* Grades */}
+                    <div className="mt-14">
+                        <h4 className="mb-5 text-center text-xl font-bold">Grades</h4>
+                        <div className="mx-auto max-w-[calc(90svw)] overflow-x-auto">
+                            <table className="mx-auto border-collapse">
+                                <thead>
+                                    <tr className="text-center">
+                                        {Object.keys(fetchQuery.data?.Grades || {})
+                                            .sort()
+                                            .map((key) => (
+                                                <td key={key} className="whitespace-pre p-2">
+                                                    {(key.split("_")[0] == "01attendance") && "حضور"}
+                                                    {(key.split("_")[0] == "02quizzes") && "Quizzes"}
+                                                    {(key.split("_")[0] == "03hymns1") && "الالحان ترم اول"}
+                                                    {(key.split("_")[0] == "04project") && "Project"}
+                                                    {(key.split("_")[0] == "05recitations") && "محفوظات"}
+                                                    {(key.split("_")[0] == "06hymns2") && "الالحان ترم تاني"}
+                                                    {(key.split("_")[0] == "07research") && "بحث"}
+                                                    {(key.split("_")[0] == "08exam1") && "Exam 1st Term"}
+                                                    {(key.split("_")[0] == "09exam2") && "Exam 2nd Term"}
+                                                    {(key.split("_")[0] == "10total") && "Total"}
+                                                    {(key.split("_")[0] == "11grade") && "Grade"}
+                                                    <br />({key.split("_")[1]})
+                                                </td>
+                                            ))}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr className="text-center">
+                                        {Object.keys(fetchQuery.data?.Grades || {})
+                                            .sort()
+                                            .map((key) => (
+                                                <td key={key} className="p-2">
+                                                    <p
+                                                        className="mx-auto w-fit rounded px-3 py-0.5"
+                                                    >
+                                                        {fetchQuery.data?.Grades[key]}
+                                                    </p>
+                                                </td>
+                                            ))}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </>
             )}
         </div>

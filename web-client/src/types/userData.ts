@@ -18,6 +18,7 @@ interface UserData {
     Attendance: Record<string, boolean>;
     AttendanceRate: string;
     Quizzes: Record<string, number>;
+    Grades: Record<string, string>;
 }
 
 export type { UserData };
