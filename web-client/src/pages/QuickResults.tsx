@@ -225,7 +225,7 @@ const QuickResults: React.FC = function () {
                         >
                             {fetchQuery.data?.AttendanceRate}
                         </p>
-                        <div className="mx-auto max-w-[calc(90svw)] overflow-x-auto">
+                        <div className="mx-auto max-w-[calc(90vw)] overflow-x-auto">
                             <table className="mx-auto border-collapse">
                                 <thead>
                                     <tr className="text-center">
@@ -263,7 +263,7 @@ const QuickResults: React.FC = function () {
                     {/* Quizzes */}
                     <div className="mt-14">
                         <h4 className="mb-5 text-center text-xl font-bold">Quizzes</h4>
-                        <div className="mx-auto max-w-[calc(90svw)] overflow-x-auto">
+                        <div className="mx-auto max-w-[calc(90vw)] overflow-x-auto">
                             <table className="mx-auto border-collapse">
                                 <thead>
                                     <tr className="text-center">
@@ -306,7 +306,7 @@ const QuickResults: React.FC = function () {
                     {/* Grades */}
                     <div className="mt-14">
                         <h4 className="mb-5 text-center text-xl font-bold">Grades</h4>
-                        <div className="mx-auto max-w-[calc(90svw)] overflow-x-auto">
+                        <div className="mx-auto max-w-[calc(90vw)] overflow-x-auto">
                             <table className="mx-auto border-collapse">
                                 <thead>
                                     <tr className="text-center">
