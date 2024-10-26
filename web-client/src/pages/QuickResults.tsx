@@ -144,7 +144,7 @@ const QuickResults: React.FC = function () {
                                 )}
                             </p>
 
-                            <p>العنوان: </p>
+                            <p>العنوان</p>
                             <p className="font-semibold">
                                 {fetchQuery.data?.Address ? (
                                     fetchQuery.data.Address
