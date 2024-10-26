@@ -304,48 +304,33 @@ const QuickResults: React.FC = function () {
                     </div>
 
                     {/* Grades */}
-                    <div className="mt-14">
+                    <div className="mt-14 lg:px-20" dir="rtl">
                         <h4 className="mb-5 text-center text-xl font-bold">Grades</h4>
-                        <div className="mx-auto max-w-[calc(90vw)] overflow-x-auto">
-                            <table className="mx-auto border-collapse">
-                                <thead>
-                                    <tr className="text-center">
-                                        {Object.keys(fetchQuery.data?.Grades || {})
-                                            .sort()
-                                            .map((key) => (
-                                                <td key={key} className="whitespace-pre p-2">
-                                                    {(key.split("_")[0] == "01attendance") && "حضور"}
-                                                    {(key.split("_")[0] == "02quizzes") && "Quizzes"}
-                                                    {(key.split("_")[0] == "03hymns1") && "الالحان ترم اول"}
-                                                    {(key.split("_")[0] == "04project") && "Project"}
-                                                    {(key.split("_")[0] == "05recitations") && "محفوظات"}
-                                                    {(key.split("_")[0] == "06hymns2") && "الالحان ترم تاني"}
-                                                    {(key.split("_")[0] == "07research") && "بحث"}
-                                                    {(key.split("_")[0] == "08exam1") && "Exam 1st Term"}
-                                                    {(key.split("_")[0] == "09exam2") && "Exam 2nd Term"}
-                                                    {(key.split("_")[0] == "10total") && "Total"}
-                                                    {(key.split("_")[0] == "11grade") && "Grade"}
-                                                    <br />({key.split("_")[1]})
-                                                </td>
-                                            ))}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr className="text-center">
-                                        {Object.keys(fetchQuery.data?.Grades || {})
-                                            .sort()
-                                            .map((key) => (
-                                                <td key={key} className="p-2">
-                                                    <p
-                                                        className="mx-auto w-fit rounded px-3 py-0.5"
-                                                    >
-                                                        {fetchQuery.data?.Grades[key]}
-                                                    </p>
-                                                </td>
-                                            ))}
-                                    </tr>
-                                </tbody>
-                            </table>
+
+                        <div className="mt-10 grid gap-4 grid-cols-2 lg:grid-cols-4 xl:grid-cols-6">
+                            {Object.keys(fetchQuery.data?.Grades || {})
+                                .sort()
+                                .map((key) => (
+                                    <>
+                                        <p key={`${key}1`} className="text-lg">
+                                            {key.split("_")[0] == "01attendance" && "حضور"}
+                                            {key.split("_")[0] == "02quizzes" && "Quizzes"}
+                                            {key.split("_")[0] == "03hymns1" && "الالحان ترم اول"}
+                                            {key.split("_")[0] == "04project" && "Project"}
+                                            {key.split("_")[0] == "05recitations" && "محفوظات"}
+                                            {key.split("_")[0] == "06hymns2" && "الالحان ترم تاني"}
+                                            {key.split("_")[0] == "07research" && "بحث"}
+                                            {key.split("_")[0] == "08exam1" && "Exam 1st Term"}
+                                            {key.split("_")[0] == "09exam2" && "Exam 2nd Term"}
+                                            {key.split("_")[0] == "10total" && "Total"}
+                                            {key.split("_")[0] == "11grade" && "Grade"} ({key.split("_")[1]})
+                                        </p>
+
+                                        <p key={`${key}2`} className="font-semibold border rounded px-2 py-0.5 w-fit">
+                                            {fetchQuery.data?.Grades[key] || 0}
+                                        </p>
+                                    </>
+                                ))}
                         </div>
                     </div>
                 </>
