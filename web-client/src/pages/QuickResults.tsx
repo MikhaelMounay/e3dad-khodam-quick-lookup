@@ -208,7 +208,7 @@ const QuickResults: React.FC = function () {
                                 ),
                             }}
                         >
-                            {fetchQuery.data?.AttendanceRate}
+                            {`${fetchQuery.data?.AttendanceRate}${fetchQuery.data?.AttendanceRate.includes("%") ? "" : "%"}`}
                         </p>
                         <div className="mx-auto max-w-[calc(90vw)] overflow-x-auto">
                             <table className="mx-auto border-collapse">
@@ -231,12 +231,9 @@ const QuickResults: React.FC = function () {
                                             .sort()
                                             .map((key) => (
                                                 <td key={key} className="p-2">
-                                                    {fetchQuery.data?.Attendance[key]
-                                                        ? "✅"
-                                                        : new Date(key) >
-                                                            new Date(new Date().setDate(new Date().getDate() - 5))
-                                                          ? "🔵"
-                                                          : "❌"}
+                                                    {fetchQuery.data?.Attendance[key] === null && "🔵"}
+                                                    {fetchQuery.data?.Attendance[key] === false && "❌"}
+                                                    {fetchQuery.data?.Attendance[key] === true && "✅"}
                                                 </td>
                                             ))}
                                     </tr>

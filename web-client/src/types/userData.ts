@@ -15,7 +15,7 @@ interface UserData {
     Address: string;
     Region: string;
     BirthDate: Timestamp;
-    Attendance: Record<string, boolean>;
+    Attendance: Record<string, boolean | null>;
     AttendanceRate: string;
     Quizzes: Record<string, number>;
     Grades: Record<string, string>;
