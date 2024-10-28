@@ -37,7 +37,7 @@ func main() {
 	fmt.Println("\n---------------------------------------------------------------------------------------")
 	fmt.Println("\n---------------  Quick Information Lookup | Student Information Portal  ---------------")
 	fmt.Println("\n---------------------------------------------------------------------------------------")
-	fmt.Println("\n----------  Welcome to the Excel to Firebase sync tool! (v1.3.1 2024-10-28)  ----------")
+	fmt.Println("\n----------  Welcome to the Excel-to-Firebase sync tool! (v1.3.1 2024-10-28)  ----------")
 	fmt.Println("\n---------------------------------------------------------------------------------------")
 
 	// Get password from user
