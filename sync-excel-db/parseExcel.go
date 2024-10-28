@@ -58,7 +58,7 @@ func getDataFromExcel(filePath string, sheetName string) []UserData {
 		}
 
 		// Attendance
-		attendance := make(map[string]bool)
+		attendance := make(map[string]*bool, 44)
 		for j, header := range headers[26:70] {
 			day, err := time.Parse("2-Jan", header)
 			if err != nil {
@@ -71,7 +71,17 @@ func getDataFromExcel(filePath string, sheetName string) []UserData {
 				day = day.AddDate(2025, 0, 0)
 			}
 
-			attendance[day.Format("2006-01-02")] = row[j+26] == "1"
+			if row[j+26] == "1" {
+				attendance[day.Format("2006-01-02")] = new(bool)
+				*(attendance[day.Format("2006-01-02")]) = true
+			} else {
+				if time.Since(day).Seconds() > 0 {
+					attendance[day.Format("2006-01-02")] = new(bool)
+					*(attendance[day.Format("2006-01-02")]) = false
+				} else {
+					attendance[day.Format("2006-01-02")] = nil
+				}
+			}
 		}
 
 		// Quizzes
@@ -100,7 +110,7 @@ func getDataFromExcel(filePath string, sheetName string) []UserData {
 			"08exam1_60":       row[22],
 			"09exam2_50":       row[23],
 			"10total_250":      row[24],
-			"11grade_100":          row[25],
+			"11grade_100":      row[25],
 		}
 
 		users[i] = UserData{
