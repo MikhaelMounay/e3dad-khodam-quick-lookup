@@ -301,7 +301,7 @@ const QuickResults: React.FC = function () {
                                             {key.split("_")[0] == "04project" && "Project"}
                                             {key.split("_")[0] == "05recitations" && "محفوظات"}
                                             {key.split("_")[0] == "06hymns2" && "الالحان ترم تاني"}
-                                            {key.split("_")[0] == "07research" && "بحث"}
+                                            {key.split("_")[0] == "07research" && "كورسات متخصصة"}
                                             {key.split("_")[0] == "08exam1" && "Exam 1st Term"}
                                             {key.split("_")[0] == "09exam2" && "Exam 2nd Term"}
                                             {key.split("_")[0] == "10total" && "Total"}

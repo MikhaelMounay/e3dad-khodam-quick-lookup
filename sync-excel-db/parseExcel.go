@@ -86,7 +86,7 @@ func getDataFromExcel(filePath string, sheetName string) []UserData {
 
 		// Quizzes
 		quizzes := make(map[string]int, 30)
-		for j, header := range headers[67:97] {
+		for j, header := range headers[67:98] {
 			if row[j+67] == "" {
 				quizzes[fmt.Sprintf("%02d_%s", j, strings.Split(header, "\n")[1])] = 0
 				continue
@@ -104,9 +104,9 @@ func getDataFromExcel(filePath string, sheetName string) []UserData {
 			"02quizzes_30":     row[16],
 			"03hymns1_10":      row[17],
 			"04project_20":     row[18],
-			"05recitations_20": row[19],
+			"05recitations_10": row[19],
 			"06hymns2_10":      row[20],
-			"07research_10":    row[21],
+			"07research_20":    row[21],
 			"08exam1_60":       row[22],
 			"09exam2_50":       row[23],
 			"10total_250":      row[24],
@@ -119,7 +119,7 @@ func getDataFromExcel(filePath string, sheetName string) []UserData {
 			Gender:               row[3] == "M",
 			Phone:                "0" + row[4],
 			Age:                  age,
-			Alert:                row[98],
+			Alert:                row[99],
 			PenanceFather:        row[12],
 			RecommendationLetter: row[13],
 			NationalId:           row[6],
