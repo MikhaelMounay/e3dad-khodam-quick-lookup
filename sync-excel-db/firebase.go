@@ -28,7 +28,7 @@ func initFirebase() error {
 		StorageBucket: "e3dad-khodam-quick-lookup.appspot.com",
 	}
 	// serviceAccount := option.WithCredentialsJSON([]byte(`{
-	// 	"JSONobject": "here"
+		
 	// }`))
 	serviceAccount := option.WithCredentialsFile("e3dad-khodam-quick-lookup-firebase-adminsdk-asaq3-b669c16b66.json")
 	app, err := firebase.NewApp(ctx, config, serviceAccount)

@@ -65,10 +65,10 @@ func getDataFromExcel(filePath string, sheetName string) []UserData {
 				fmt.Printf("Error: `%v` in column %v of name %v\n", err, j+26, header)
 			}
 
-			if slices.Contains([]time.Month{time.October, time.November, time.December}, day.Month()) {
-				day = day.AddDate(2024, 0, 0)
-			} else {
+			if slices.Contains([]time.Month{time.September, time.October, time.November, time.December}, day.Month()) {
 				day = day.AddDate(2025, 0, 0)
+			} else {
+				day = day.AddDate(2026, 0, 0)
 			}
 
 			if row[j+26] == "1" {
@@ -85,8 +85,8 @@ func getDataFromExcel(filePath string, sheetName string) []UserData {
 		}
 
 		// Quizzes
-		quizzes := make(map[string]int, 30)
-		for j, header := range headers[67:98] {
+		quizzes := make(map[string]int, 32)
+		for j, header := range headers[67:99] {
 			if row[j+67] == "" {
 				quizzes[fmt.Sprintf("%02d_%s", j, strings.Split(header, "\n")[1])] = 0
 				continue

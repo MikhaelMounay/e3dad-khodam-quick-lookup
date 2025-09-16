@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/gosuri/uilive"
+	"golang.org/x/term"
 )
 
 type UserData struct {
@@ -32,13 +33,7 @@ type UserData struct {
 }
 
 func main() {
-	fmt.Println("\n---------------------------------------------------------------------------------------")
-	fmt.Println("\n-----------------------  E3dad Khodam St Mary Church ElZeitoun  -----------------------")
-	fmt.Println("\n---------------------------------------------------------------------------------------")
-	fmt.Println("\n---------------  Quick Information Lookup | Student Information Portal  ---------------")
-	fmt.Println("\n---------------------------------------------------------------------------------------")
-	fmt.Println("\n----------  Welcome to the Excel-to-Firebase sync tool! (v1.3.3 2025-07-05)  ----------")
-	fmt.Println("\n---------------------------------------------------------------------------------------")
+	printWelcomeMsg()
 
 	// Get password from user
 	scanner := bufio.NewScanner(os.Stdin)
@@ -112,4 +107,36 @@ func main() {
 	fmt.Println("\nHave a nice day! Bless you :)")
 	fmt.Print("\nPress enter/return to exit...")
 	fmt.Scanln()
+}
+
+func printWelcomeMsg() {
+	termWidth, _, err := term.GetSize(int(os.Stdout.Fd()))
+	if err != nil {
+		// Fallback if we can't get the terminal size
+		panic(err)
+	}
+
+	dashedLine := func() string {
+		return strings.Repeat(" ", termWidth) // With white space, it's acting as a '\n'
+	}
+
+	dashedLineWithText := func(text string) string {
+		text = "  " + text + "  "
+		textLength := len(text)
+
+		padding := (termWidth - textLength) / 2
+
+		return strings.Repeat("-", padding) + text + strings.Repeat("-", padding+termWidth-textLength-2*padding)
+	}
+
+	fmt.Println(dashedLine())
+	fmt.Println(dashedLineWithText("E3dad Khodam St Mary Church ElZeitoun"))
+	fmt.Println(dashedLine())
+	fmt.Println(dashedLineWithText("Quick Information Lookup | Student Information Portal"))
+	fmt.Println(dashedLine())
+	fmt.Println(dashedLineWithText("Welcome to the Excel-to-Firebase sync tool! (v1.3.4 2025-09-16)"))
+	fmt.Println(dashedLine())
+	fmt.Println(dashedLineWithText("Made with <3 by You-Know-Who ;)"))
+	fmt.Println(dashedLine())
+	fmt.Println()
 }
