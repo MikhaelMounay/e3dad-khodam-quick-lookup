@@ -134,7 +134,7 @@ func printWelcomeMsg() {
 	fmt.Println(dashedLine())
 	fmt.Println(dashedLineWithText("Quick Information Lookup | Student Information Portal"))
 	fmt.Println(dashedLine())
-	fmt.Println(dashedLineWithText("Welcome to the Excel-to-Firebase sync tool! (v1.3.4 2025-09-16)"))
+	fmt.Println(dashedLineWithText("Welcome to the Excel-to-Firebase sync tool! (v1.3.5 2025-09-19)"))
 	fmt.Println(dashedLine())
 	fmt.Println(dashedLineWithText("Made with <3 by You-Know-Who ;)"))
 	fmt.Println(dashedLine())

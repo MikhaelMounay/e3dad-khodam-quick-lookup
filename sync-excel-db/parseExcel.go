@@ -32,7 +32,7 @@ func getDataFromExcel(filePath string, sheetName string) []UserData {
 	var users = make([]UserData, len(rows)-2)
 	for i, row := range rows[1 : len(rows)-1] {
 		// Age
-		age, err := strconv.Atoi(row[5])
+		age, err := strconv.Atoi(row[6])
 		if err != nil {
 			fmt.Printf("Error: error parsing Age: \"%v\" in row %v of name %v\n", err, i+2, row[2])
 		}
@@ -40,17 +40,17 @@ func getDataFromExcel(filePath string, sheetName string) []UserData {
 		// BirthDate
 		birthDate_str := ""
 		var birthDate time.Time
-		if len(row[6]) == 14 {
-			if row[6][0] == '2' {
+		if len(row[7]) == 14 {
+			if row[7][0] == '2' {
 				birthDate_str += "19"
 			} else {
 				birthDate_str += "20"
 			}
-			birthDate_str += row[6][1:3] + "-" + row[6][3:5] + "-" + row[6][5:7]
+			birthDate_str += row[7][1:3] + "-" + row[7][3:5] + "-" + row[7][5:7]
 
 			birthDate, err = time.Parse("2006-01-02", birthDate_str)
 			if err != nil {
-				birthDate, err = time.Parse("02-Jan-06", row[11])
+				birthDate, err = time.Parse("02-Jan-06", row[12])
 				if err != nil {
 					fmt.Printf("Error: `%v` in row %v of name %v\n", err, i+2, row[2])
 				}
@@ -59,10 +59,10 @@ func getDataFromExcel(filePath string, sheetName string) []UserData {
 
 		// Attendance
 		attendance := make(map[string]*bool, 41)
-		for j, header := range headers[26:67] {
+		for j, header := range headers[27:68] {
 			day, err := time.Parse("2-Jan", header)
 			if err != nil {
-				fmt.Printf("Error: `%v` in column %v of name %v\n", err, j+26, header)
+				fmt.Printf("Error: `%v` in column %v of name %v\n", err, j+27, header)
 			}
 
 			if slices.Contains([]time.Month{time.September, time.October, time.November, time.December}, day.Month()) {
@@ -71,7 +71,7 @@ func getDataFromExcel(filePath string, sheetName string) []UserData {
 				day = day.AddDate(2026, 0, 0)
 			}
 
-			if row[j+26] == "1" {
+			if row[j+27] == "1" {
 				attendance[day.Format("2006-01-02")] = new(bool)
 				*(attendance[day.Format("2006-01-02")]) = true
 			} else {
@@ -86,50 +86,50 @@ func getDataFromExcel(filePath string, sheetName string) []UserData {
 
 		// Quizzes
 		quizzes := make(map[string]int, 32)
-		for j, header := range headers[67:99] {
-			if row[j+67] == "" {
+		for j, header := range headers[68:100] {
+			if row[j+68] == "" {
 				quizzes[fmt.Sprintf("%02d_%s", j, strings.Split(header, "\n")[1])] = 0
 				continue
 			}
 
-			quizzes[fmt.Sprintf("%02d_%s", j, strings.Split(header, "\n")[1])], err = strconv.Atoi(row[j+67])
+			quizzes[fmt.Sprintf("%02d_%s", j, strings.Split(header, "\n")[1])], err = strconv.Atoi(row[j+68])
 			if err != nil {
-				fmt.Printf("Error: `%v` in column %v of name %v\n", err, j+67, header)
+				fmt.Printf("Error: `%v` in column %v of name %v\n", err, j+68, header)
 			}
 		}
 
 		// Grades
 		grades := map[string]string{
-			"01attendance_40":  row[15],
-			"02quizzes_30":     row[16],
-			"03hymns1_10":      row[17],
-			"04project_20":     row[18],
-			"05recitations_10": row[19],
-			"06hymns2_10":      row[20],
-			"07research_20":    row[21],
-			"08exam1_60":       row[22],
-			"09exam2_50":       row[23],
-			"10total_250":      row[24],
-			"11grade_100":      row[25],
+			"01attendance_40":  row[16],
+			"02quizzes_30":     row[17],
+			"03hymns1_10":      row[18],
+			"04project_20":     row[19],
+			"05recitations_10": row[20],
+			"06hymns2_10":      row[21],
+			"07research_20":    row[22],
+			"08exam1_60":       row[23],
+			"09exam2_50":       row[24],
+			"10total_250":      row[25],
+			"11grade_100":      row[26],
 		}
 
 		users[i] = UserData{
-			NameAr:               row[1],
-			NameEn:               row[2],
-			Gender:               row[3] == "M",
-			Phone:                "0" + row[4],
+			NameAr:               row[2],
+			NameEn:               row[3],
+			Gender:               row[4] == "M",
+			Phone:                "0" + row[5],
 			Age:                  age,
-			Alert:                row[99],
-			PenanceFather:        row[12],
-			RecommendationLetter: row[13],
-			NationalId:           row[6],
-			GroupName:            row[7],
-			ServantName:          row[8],
-			Address:              row[9],
-			Region:               row[10],
+			Alert:                row[100],
+			PenanceFather:        row[13],
+			RecommendationLetter: row[14],
+			NationalId:           row[7],
+			GroupName:            row[8],
+			ServantName:          row[9],
+			Address:              row[10],
+			Region:               row[11],
 			BirthDate:            birthDate,
 			Attendance:           attendance,
-			AttendanceRate:       row[14],
+			AttendanceRate:       row[15],
 			Quizzes:              quizzes,
 			Grades:               grades,
 		}
